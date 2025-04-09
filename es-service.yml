@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: yc-elasticsearch
+spec:
+  ports:
+    - name: yc-elasticsearch
+      protocol: TCP
+      port: 80
+      targetPort: 9200
+  selector:
+    app: yc-elasticsearch
+  type: ClusterIP
+  sessionAffinity: None

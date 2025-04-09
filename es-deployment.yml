@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: yc-elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yc-elasticsearch
+  template:
+    metadata:
+      labels:
+        app: yc-elasticsearch
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: elasticsearch-config-yc
+            defaultMode: 420
+      securityContext:
+        sysctls:
+          - name: vm.max_map_count
+            value: "262144"
+      containers:
+        - name: yc-elasticsearch
+          image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
+          ports:
+            - containerPort: 9200
+              protocol: TCP
+            - containerPort: 9300
+              protocol: TCP
+          env:
+            - name: ES_JAVA_OPTS
+              value: '-Xms512m -Xmx512m'
+            - name: discovery.type
+              value: single-node
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+              subPath: elasticsearch.yml
