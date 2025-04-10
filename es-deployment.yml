@@ -17,10 +17,15 @@ spec:
           configMap:
             name: elasticsearch-config-yc
             defaultMode: 420
-      securityContext:
-        sysctls:
-          - name: vm.max_map_count
-            value: "262144"
+      initContainers:
+        - name: increase-vm-max-map
+          image: busybox
+          command:
+            - sysctl
+            - '-w'
+            - vm.max_map_count=262144
+          securityContext:
+            privileged: true
       containers:
         - name: yc-elasticsearch
           image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
