@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: yc-kibana
+spec:
+  ports:
+    - name: yc-kibana
+      protocol: TCP
+      port: 5601
+      targetPort: 5601
+  selector:
+    component: yc-kibana
+  type: LoadBalancer
