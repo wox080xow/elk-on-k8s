@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-storage
+#provisioner: kubernetes.io/nfs
+provisioner: nfs.subdir-external-provisioner
+parameters:
+  server: 10.3.119.18
+  path: /export/nfs
+reclaimPolicy: Retain
