@@ -26,8 +26,8 @@ spec:
             defaultMode: 420
       containers:
         - name: elk-kibana
-          image: 'docker.elastic.co/kibana/kibana:7.12.0'
-          #image: 'docker.elastic.co/kibana/kibana:7.17.28'
+          #image: 'docker.elastic.co/kibana/kibana:7.12.0'
+          image: 'docker.elastic.co/kibana/kibana:7.17.28'
           ports:
             - name: yc-kibana
               containerPort: 5601
