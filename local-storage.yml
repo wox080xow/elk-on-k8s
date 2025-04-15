@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner  # 不使用動態供應器，這是本地存儲
+volumeBindingMode: WaitForFirstConsumer   # 在 Pod 被調度後再綁定 PV
+
