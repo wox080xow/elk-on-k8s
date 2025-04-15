@@ -4,10 +4,14 @@ metadata:
   name: yc-elasticsearch
 spec:
   ports:
-    - name: yc-elasticsearch
+    - name: yc-elasticsearch-http
       protocol: TCP
       port: 9200
       targetPort: 9200
+    - name: yc-elasticsearch-transport
+      protocol: TCP
+      port: 9300
+      targetPort: 9300
   selector:
     app: yc-elasticsearch
   type: ClusterIP

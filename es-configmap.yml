@@ -6,5 +6,7 @@ data:
   elasticsearch.yml: |
     cluster.name: "docker-cluster" 
     network.host: 0.0.0.0
+    discovery.seed_hosts: ${DISCOVERY_SERVICE}
+    cluster.initial_master_nodes: "yc-elasticsearch-0,yc-elasticsearch-1,yc-elasticsearch-2"
     xpack.license.self_generated.type: trial 
     xpack.monitoring.collection.enabled: true

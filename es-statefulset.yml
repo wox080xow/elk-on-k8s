@@ -31,8 +31,8 @@ spec:
             privileged: true
       containers:
         - name: yc-elasticsearch
-          image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
-          #image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.28'
+          #image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
+          image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.28'
           ports:
             - containerPort: 9200
               protocol: TCP
@@ -41,12 +41,19 @@ spec:
           env:
             - name: ES_JAVA_OPTS
               value: '-Xms512m -Xmx512m'
-            - name: discovery.type
-              value: single-node
+            #- name: discovery.type
+            #  value: single-node
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: DISCOVERY_SERVICE
+              value: yc-elasticsearch
           volumeMounts:
             - name: config
               mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
               subPath: elasticsearch.yml
             - name: data
               mountPath: /usr/share/elasticsearch/data
+              subPathExpr: elasticsearch/data/$(NODE_NAME)
 
